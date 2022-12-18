@@ -1,0 +1,33 @@
+#
+# Helm values
+#
+
+application:
+  namespace: wifebad
+  git: ssh://git@github.com/Akurata/wifebad.git
+
+  services:
+    wifebad:
+      # Tekton pipeline config
+      pipeline:
+        context: .
+        dockerfile: Dockerfile
+
+      # Cluster ingress url + CORS allowed origins
+      ingress:
+        host: wifebad.com
+
+      # Deployment configuration
+      image:
+        repo: registry.alexkurata.com/akurata/wifebad
+        tag: latest
+      replicas: 1
+      ports:
+        - 80
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          cpu: 100m
+          memory: 128Mi
